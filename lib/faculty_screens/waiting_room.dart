@@ -1,0 +1,258 @@
+import 'dart:async';
+
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_launcher_icons/xml_templates.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:scipro_application/widgets/button_Container.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+class WaitingRoomScreen extends StatefulWidget {
+  const WaitingRoomScreen({super.key});
+
+  @override
+  State<WaitingRoomScreen> createState() => _WaitingRoomScreenState();
+}
+
+class _WaitingRoomScreenState extends State<WaitingRoomScreen> {
+  TextEditingController sheduled_time = TextEditingController();
+  TextEditingController msge = TextEditingController();
+  late final dref = FirebaseDatabase.instance.ref();
+  late DatabaseReference databaseReference;
+  String timeText = "";
+  String dateText = "";
+
+  String formatCurrentLiveTime(DateTime time) {
+    return DateFormat("hh : mm : ss a").format(time);
+  }
+
+  String formatCurrentDate(DateTime date) {
+    return DateFormat("dd MMMM, yyyy").format(date);
+  }
+
+  getCurrentLiveTime() {
+    final DateTime timeNow = DateTime.now();
+    final String liveTime = formatCurrentLiveTime(timeNow);
+    final String liveDate = formatCurrentDate(timeNow);
+
+    if (this.mounted) {
+      setState(() {
+        timeText = liveTime;
+        dateText = liveDate;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    databaseReference = dref.child("course");
+    //date
+    dateText = formatCurrentDate(DateTime.now());
+
+    //time
+    timeText = formatCurrentLiveTime(DateTime.now());
+
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      getCurrentLiveTime();
+    });
+  }
+
+  final Uri toLaunch = Uri(scheme: 'https', host: 'test.scipro.in', path: '');
+  Future<void>? _launched;
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Waiting Room"),
+        ),
+        body: SafeArea(
+            child: ListView(
+          children: [
+            ButtonContainerWidget(
+              curving: 0,
+              colorindex: 0,
+              height: 230,
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    timeText,
+                    style: GoogleFonts.montserrat(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    dateText,
+                    style: GoogleFonts.montserrat(
+                        color: const Color.fromARGB(255, 26, 26, 26),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  StreamBuilder(
+                    stream: databaseReference.child("courseA").onValue,
+                    builder: (context, AsyncSnapshot snapshot) {
+                      if (!snapshot.hasData)
+                        return const CircularProgressIndicator(
+                            color: Colors.red);
+                      return Column(
+                        children: [
+                          if (snapshot.data.snapshot.value["start"]
+                                  .toString() ==
+                              "b")
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Activated the class is ON',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 6, 42, 7),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextField(
+              controller: msge,
+              decoration: InputDecoration(
+                  hintText: "Message for students",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20))),
+            ),
+            TextButton.icon(
+                onPressed: () {
+                  databaseReference
+                      .child("courseA")
+                      .child("message")
+                      .set(msge.text);
+                  Get.snackbar("Sented", 'Message sented to students',
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                      messageText: Text(
+                        'Class will be  Dectivated',
+                        style: GoogleFonts.montserrat(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700),
+                      ));
+                },
+                icon: const Icon(Icons.send),
+                label: const Text("Sent")),
+            const SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              onTap: () {
+                databaseReference.child("courseA").child("start").set("b");
+                Get.snackbar("Activated", ' You are not Subscribed',
+                    backgroundColor: Colors.green,
+                    colorText: Colors.white,
+                    messageText: Text(
+                      'Class is Activated',
+                      style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700),
+                    ));
+              },
+              child: ButtonContainerWidget(
+                curving: 0,
+                colorindex: 4,
+                height: 60,
+                width: 200,
+                child: Center(
+                  child: Text(
+                    'Activate Class',
+                    style: GoogleFonts.montserrat(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                databaseReference.child("courseA").child("start").set("a");
+                Get.snackbar("Dectivated", ' You are not Subscribed',
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                    messageText: Text(
+                      'Class will be  Dectivated',
+                      style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700),
+                    ));
+              },
+              child: ButtonContainerWidget(
+                curving: 0,
+                colorindex: 5,
+                height: 60,
+                width: 200,
+                child: Center(
+                  child: Text(
+                    'Deactivate Class room',
+                    style: GoogleFonts.montserrat(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  _launched = _launchInBrowser(toLaunch);
+                });
+              },
+              child: ButtonContainerWidget(
+                curving: 2,
+                colorindex: 2,
+                height: 60,
+                width: 200,
+                child: Center(
+                  child: Text(
+                    'Start Class',
+                    style: GoogleFonts.montserrat(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ),
+            )
+          ],
+        )));
+  }
+}
