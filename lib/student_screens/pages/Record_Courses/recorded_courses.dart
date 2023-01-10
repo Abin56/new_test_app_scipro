@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-
 import '../../../model/live_course_model.dart';
 import '../../../widgets/button_Container.dart';
 import 'new_rec_course_details.dart';
@@ -47,6 +46,7 @@ class RecordedCoursesListScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () async {
                                 await Get.to(RecordedCourseDetailScreen(
+                                    id: data.id,
                                     coursetitle: data.courseTitle,
                                     faculty: data.facultyName,
                                     coursefee: data.courseFee,

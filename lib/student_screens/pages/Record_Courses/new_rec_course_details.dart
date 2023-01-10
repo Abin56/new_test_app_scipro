@@ -14,6 +14,7 @@ class RecordedCourseDetailScreen extends StatelessWidget {
   String coursetitle;
   String faculty;
   String coursefee;
+  String id;
   String duration;
   String courseId;
   String time;
@@ -21,6 +22,7 @@ class RecordedCourseDetailScreen extends StatelessWidget {
   RecordedCourseDetailScreen(
       {required this.coursetitle,
       required this.faculty,
+      required this.id,
       required this.coursefee,
       required this.duration,
       required this.courseId,
@@ -147,7 +149,7 @@ class RecordedCourseDetailScreen extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          duration,
+                          duration.toString(),
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         )
@@ -214,6 +216,8 @@ class RecordedCourseDetailScreen extends StatelessWidget {
             GestureDetector(
               onTap: () async {
                 Get.to(CheckOutScreen(
+                    duration: int.parse(duration),
+                    id: id,
                     courseName: coursetitle,
                     totalPrice: coursefee,
                     courseID: courseId));

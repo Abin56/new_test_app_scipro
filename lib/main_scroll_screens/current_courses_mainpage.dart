@@ -563,7 +563,7 @@ class _CurrentCoursesMainPageState extends State<CurrentCoursesMainPage> {
                             InkWell(
                               onTap: () {
                                 log("vilich");
-                                Get.to(const HybridCourses());
+                                Get.to( HybridCourses());
                               },
                               child: Container(
                                   alignment: Alignment.center,

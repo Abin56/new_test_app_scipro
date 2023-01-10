@@ -97,7 +97,7 @@ class _LiveCourseListScreenState extends State<LiveCourseListScreen> {
 List screens = [
   RecordedCoursesListScreen(),
   LiveCoursesListScreen(),
-  const HybridCourses(),
+   HybridCourses(),
   const FacultieScreen(),
   const StudyMaterialsScreen(),
   const LiveMockTestsScreen()

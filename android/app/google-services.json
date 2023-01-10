@@ -1,93 +1,35 @@
 {
   "project_info": {
-    "project_number": "1034750484450",
-    "project_id": "scipro-362508",
-    "storage_bucket": "scipro-362508.appspot.com"
+    "project_number": "974571096401",
+    "firebase_url": "https://leptonscipro-31792-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "leptonscipro-31792",
+    "storage_bucket": "leptonscipro-31792.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1034750484450:android:a39c4b55b336d22d26e3bb",
+        "mobilesdk_app_id": "1:974571096401:android:fabae457a0fe2d509a6b70",
         "android_client_info": {
           "package_name": "com.example.scipro_application"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1034750484450-0b2t2ti2famul8iemq9cdqia9pvejvln.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.scipro_application",
-            "certificate_hash": "f3eb03b9c484fa903fee9522b2f8705fb27626b4"
-          }
-        },
-        {
-          "client_id": "1034750484450-se7u3jnqovak8eh7p8rf79fh9gqt7ff7.apps.googleusercontent.com",
+          "client_id": "974571096401-1k7mf09vljmdbaa7amnqn8tt501cafrp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDp1hFfdPKAEEN8TkskNPMHQ4gg6t5He5Y"
+          "current_key": "AIzaSyBogPa96bXKrKGAaJpaHrqMpeNdq5nn7aE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1034750484450-se7u3jnqovak8eh7p8rf79fh9gqt7ff7.apps.googleusercontent.com",
+              "client_id": "974571096401-1k7mf09vljmdbaa7amnqn8tt501cafrp.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "1034750484450-s1soahl3fsb2d89ive8d4g4g0ps4qlck.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.sciproWeb"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1034750484450:android:429c905201cdc29126e3bb",
-        "android_client_info": {
-          "package_name": "com.example.scipro_web"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1034750484450-385ha7j82uvl78u3vmep69tf9tun9tgp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.scipro_web",
-            "certificate_hash": "f3eb03b9c484fa903fee9522b2f8705fb27626b4"
-          }
-        },
-        {
-          "client_id": "1034750484450-se7u3jnqovak8eh7p8rf79fh9gqt7ff7.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDp1hFfdPKAEEN8TkskNPMHQ4gg6t5He5Y"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1034750484450-se7u3jnqovak8eh7p8rf79fh9gqt7ff7.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "1034750484450-s1soahl3fsb2d89ive8d4g4g0ps4qlck.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.sciproWeb"
-              }
             }
           ]
         }

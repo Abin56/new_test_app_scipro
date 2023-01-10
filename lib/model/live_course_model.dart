@@ -19,7 +19,7 @@ class LiveCourseAddModel {
     required this.courseID,
     required this.postedDate,
     required this.postedTime,
-        required this.roomID,
+    required this.roomID,
   });
 
   String facultyName;
@@ -30,7 +30,7 @@ class LiveCourseAddModel {
   String courseID;
   String postedDate;
   String postedTime;
-    String roomID;
+  String roomID;
 
   factory LiveCourseAddModel.fromJson(Map<String, dynamic> json) =>
       LiveCourseAddModel(
@@ -38,11 +38,11 @@ class LiveCourseAddModel {
         facultyName: json["facultyName"] ?? '',
         courseFee: json["courseFee"] ?? '',
         id: json["id"] ?? '',
-        duration: json["duration"] ?? '',
+        duration: json["duration"] ?? 0,
         courseID: json["courseID"] ?? '',
         postedDate: json["postedDate"] ?? '',
         postedTime: json["postedTime"] ?? '',
-                roomID: json["roomID"] ?? '',
+        roomID: json["roomID"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -54,7 +54,7 @@ class LiveCourseAddModel {
         "courseID": courseID,
         "postedDate": postedDate,
         "postedTime": postedTime,
-         "roomID": roomID,
+        "roomID": roomID,
       };
 }
 

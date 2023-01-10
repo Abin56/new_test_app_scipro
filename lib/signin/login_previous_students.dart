@@ -94,7 +94,7 @@ class PreviousStudentCourseList extends StatelessWidget {
                 if (docData.isNotEmpty) {
                   log("set");
 
-                  Get.to(RecordedvideosPlayList(videoPath: 'JSA@SCI1R'));
+                  // Get.to(RecordedvideosPlayList(videoPath: 'JSA@SCI1R'));
                 } else {
                   final currentname =
                       FirebaseAuth.instance.currentUser!.displayName;
@@ -199,7 +199,7 @@ class PreviousStudentCourseList extends StatelessWidget {
                 if (docData.isNotEmpty) {
                   log("set");
 
-                  Get.to(RecordedvideosPlayList(videoPath: 'JLA@SCI1R'));
+                  // Get.to(RecordedvideosPlayList(videoPath: 'JLA@SCI1R'));
                 } else {
                   final currentname =
                       FirebaseAuth.instance.currentUser!.displayName;

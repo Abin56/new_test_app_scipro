@@ -96,12 +96,12 @@ class _MyHomePageState extends State<MyHomePage> {
     log('Callling the UserPAmentModel');
     final user = FirebaseAuth.instance.currentUser!.uid;
     var checking = await FirebaseFirestore.instance
-        .collection('UserPaymentModel')
+        .collection('UserRECPaymentModel')
         .doc(user)
         .get();
     log('Data loading >>>>>>>>>>>>>>>>>>>..${checking}');
     setState(() {
-      widget.courseID = checking.data()!['courseName'];
+      widget.courseID = checking.data()!['listofCourse'];
       log('Data loading >>>>>>>>>>>>>>>>>>>..${widget.courseID}');
     });
   }
@@ -131,6 +131,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!.uid;
+    log(user.toString());
     var screenSize = MediaQuery.of(context).size;
     _opacity = _scrollPosition < screenSize.height * 0.40
         ? _scrollPosition / (screenSize.height * 0.40)
@@ -207,37 +209,42 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                     ),
-                    Builder(builder: (context) {
-                      if (widget.courseID.isNotEmpty) {
-                        return CustomButton(
-                            text: 'Subscribed Courses',
-                            onPressed: () async {
-                              Get.to(const UserSelectingCourselisting());
-                            });
-                      } else if (widget.liveCourseID.isNotEmpty) {
-                        return CustomButton(
-                            text: 'Subscribed Courses',
-                            onPressed: () async {
-                              Get.to(const UserSelectingCourselisting());
-                            });
-                      } else if (widget.liveCourseID.isNotEmpty &&
-                          widget.courseID.isNotEmpty) {
-                        return CustomButton(
-                            text: 'Subscribed Courses',
-                            onPressed: () async {
-                              Get.to(const UserSelectingCourselisting());
-                            });
-                      } else if (widget.liveCourseID.isEmpty &&
-                          widget.courseID.isEmpty) {
-                        return const SizedBox(
-                          height: 50,
-                        );
-                      } else {
-                        return const SizedBox(
-                          height: 50,
-                        );
-                      }
-                    }),
+                    CustomButton(
+                        text: 'Subscribed Courses',
+                        onPressed: () async {
+                          Get.to(const UserSelectingCourselisting());
+                        })
+                    // Builder(builder: (context) {
+                    //   if (widget.courseID.isNotEmpty) {
+                    //     return CustomButton(
+                    //         text: 'Subscribed Courses',
+                    //         onPressed: () async {
+                    //           Get.to(const UserSelectingCourselisting());
+                    //         });
+                    //   } else if (widget.liveCourseID.isNotEmpty) {
+                    //     return CustomButton(
+                    //         text: 'Subscribed Courses',
+                    //         onPressed: () async {
+                    //           Get.to(const UserSelectingCourselisting());
+                    //         });
+                    //   } else if (widget.liveCourseID.isNotEmpty &&
+                    //       widget.courseID.isNotEmpty) {
+                    //     return CustomButton(
+                    //         text: 'Subscribed Courses',
+                    //         onPressed: () async {
+                    //           Get.to(const UserSelectingCourselisting());
+                    //         });
+                    //   } else if (widget.liveCourseID.isEmpty &&
+                    //       widget.courseID.isEmpty) {
+                    //     return const SizedBox(
+                    //       height: 50,
+                    //     );
+                    //   } else {
+                    //     return const SizedBox(
+                    //       height: 50,
+                    //     );
+                    //   }
+                    // }),
                   ],
                 ),
               ),

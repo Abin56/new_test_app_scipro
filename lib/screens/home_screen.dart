@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     //  RecordedvideosPlayList(),
     // LiveClassRoom(roomID: ''),
-    const HybridCourses()
+     HybridCourses()
   ];
   // int currentIndex = 0;
   // currentindex(int index) {
@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
             GButton(
               iconSize: 20,
               icon: Icons.live_tv_sharp,
-              text: 'Hybridl',
+              text: 'Hybrid',
             )
           ],
           selectedIndex: _page,

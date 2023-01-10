@@ -15,8 +15,8 @@ import 'package:scipro_application/screens/home_screen.dart';
 import 'package:scipro_application/widgets/button_Container.dart';
 
 class InvoiceScreen extends StatefulWidget {
-  int inVoiceNumber = 0;
-  int n = 0;
+
+  int inVoiceNumber;
   String customerName;
   String email;
   String purchasingModel;
@@ -25,6 +25,7 @@ class InvoiceScreen extends StatefulWidget {
   InvoiceScreen(
       {required this.customerName,
       required this.email,
+      required this.inVoiceNumber,
       required this.price,
       required this.purchasingModel,
       super.key});
@@ -34,20 +35,6 @@ class InvoiceScreen extends StatefulWidget {
 }
 
 class _InvoiceScreenState extends State<InvoiceScreen> {
-  void getInvoice() async {
-    var vari = await FirebaseFirestore.instance
-        .collection("InvoiceNumber")
-        .doc("integer")
-        .get();
-    setState(() {
-      widget.inVoiceNumber = vari.data()!['number'];
-    });
-    var newData = widget.inVoiceNumber + 1;
-    FirebaseFirestore.instance
-        .collection("InvoiceNumber")
-        .doc("integer")
-        .update({"number": newData});
-  }
 
   late final dref = FirebaseDatabase.instance.ref();
   late DatabaseReference databaseReference;
@@ -78,25 +65,21 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     listID = roomName;
   }
 
-  void _counter() {
-    widget.n == widget.n++;
-  }
+
 
   @override
   void initState() {
-    getInvoice();
+    // getInvoice();
     databaseReference = dref.child("course");
-    _counter();
+    // _counter();
 
     creatNewMeeting();
-    // TODO: implement initState
     getCurrentLiveTime();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    log(widget.inVoiceNumber);
     return Scaffold(
       body: SafeArea(
           child: Column(

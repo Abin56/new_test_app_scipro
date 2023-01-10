@@ -1,5 +1,6 @@
 // ignore_for_file: sort_child_properties_last, must_be_immutable, unused_catch_clause, empty_catches
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,8 @@ import '../widgets/button_Container.dart';
 import '../widgets/newMorphism.dart';
 
 class LiveCoursePayment extends StatefulWidget {
+  DateTime newDate = DateTime.now();
+  int inVoiceNumber = 0;
   final user = FirebaseAuth.instance.currentUser!.uid;
   final userEmail = FirebaseAuth.instance.currentUser!.email;
   final userName = FirebaseAuth.instance.currentUser!.displayName;
@@ -21,14 +24,15 @@ class LiveCoursePayment extends StatefulWidget {
   String courseTime;
   String roomID;
   String id;
+  int duration;
   LiveCoursePayment(
       {required this.totalPrice,
       required this.courseID,
+    required this.duration,
       required this.courseName,
       required this.courseTime,
       required this.roomID,
-        required this.id,
-    
+      required this.id,
       super.key});
 
   @override
@@ -51,6 +55,30 @@ class _LiveCoursePaymentState extends State<LiveCoursePayment> {
     super.initState();
   }
 
+  getDate() async {
+    DateTime date = DateTime.now();
+    print(date);
+    widget.newDate = date.add(Duration(days: widget.duration));
+
+    return widget.newDate;
+  }
+
+  getInvoice() async {
+    var vari = await FirebaseFirestore.instance
+        .collection("InvoiceNumber")
+        .doc("integer")
+        .get();
+    setState(() {
+      widget.inVoiceNumber = vari.data()!['number'];
+      var newData = widget.inVoiceNumber + 1;
+      FirebaseFirestore.instance
+          .collection("InvoiceNumber")
+          .doc("integer")
+          .update({"number": newData});
+    });
+    log(widget.inVoiceNumber);
+  }
+
   creatNewMeeting() async {
     var random = Random();
     String roomName = (random.nextInt(10000000) + 10000000).toString();
@@ -64,9 +92,14 @@ class _LiveCoursePaymentState extends State<LiveCoursePayment> {
   // }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    await getInvoice();
+    await getDate();
     // After paymentSuccessFull section>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
     final userpaymentData = LiveCoursePaymentModel(
-      id: widget.id,
+        date: widget.newDate.toString(),
+        inVoiceNumber: widget.inVoiceNumber,
+        time: '',
+        id: widget.id,
         roomID: widget.roomID,
         totalPrice: widget.totalPrice,
         courseTime: widget.courseTime,
@@ -241,7 +274,7 @@ class _LiveCoursePaymentState extends State<LiveCoursePayment> {
                     // Get.off(PaymentScreen());
                     //
                     var options = {
-                      'key': 'rzp_live_WkqZiZtSI6LGQ9',
+                      'key': 'rzp_test_4H63BqbBLQlmNQ',
                       //amount will be multiple of 100
                       'amount': paymentPrice.toString(), //so its pay 500
                       'name': 'VECTOR WIND',

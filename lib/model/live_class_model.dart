@@ -27,6 +27,9 @@ class LiveCoursePaymentModel {
     required this.totalPrice,
     required this.roomID,
     required this.id,
+    required this.inVoiceNumber,
+    required this.time,
+        required this.date,
   });
 
   String useremail;
@@ -37,6 +40,9 @@ class LiveCoursePaymentModel {
   String courseTime;
   String totalPrice;
   String roomID;
+  int inVoiceNumber;
+  String time;
+  String date;
   String id;
   factory LiveCoursePaymentModel.fromJson(Map<String, dynamic> json) =>
       LiveCoursePaymentModel(
@@ -49,6 +55,9 @@ class LiveCoursePaymentModel {
         totalPrice: json["courseTime"] ?? '',
         roomID: json["roomID"] ?? '',
         id: json["id"] ?? '',
+        inVoiceNumber: json["inVoiceNumber"] ?? 0,
+        time: json["time"] ?? '',
+            date: json["date"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -61,6 +70,9 @@ class LiveCoursePaymentModel {
         "totalPrice": totalPrice,
         "roomID": roomID,
         "id": id,
+        "inVoiceNumber": inVoiceNumber,
+        "time": time,
+          "date": date,
       };
 }
 
@@ -75,6 +87,7 @@ class LivePaymentStatusAddToFireBase {
           .doc(currentUser)
           .set(productModel.toJson())
           .then((value) => Get.to(Get.to(PaymentSucessfullScreen(
+                inVoiceNumber: 0,
                 customerName: productModel.userName,
                 email: productModel.useremail,
                 purchasingModel: productModel.courseName,

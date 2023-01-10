@@ -28,7 +28,7 @@ class LiveCourseDetailScreen extends StatelessWidget {
       required this.date,
       required this.time,
       required this.roomID,
-          required this.id,
+      required this.id,
       super.key});
 
   @override
@@ -150,7 +150,7 @@ class LiveCourseDetailScreen extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          duration,
+                          duration.toString(),
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         )
@@ -217,8 +217,8 @@ class LiveCourseDetailScreen extends StatelessWidget {
             GestureDetector(
               onTap: () async {
                 Get.to(LiveCoursePayment(
-             id: id,
-
+                    duration: int.parse(duration),
+                    id: id,
                     roomID: roomID,
                     courseTime: time,
                     courseName: coursetitle,

@@ -13,17 +13,23 @@ import '../widgets/button_Container.dart';
 import '../widgets/newMorphism.dart';
 
 class CheckOutScreen extends StatefulWidget {
-  int invoice = 0;
+  DateTime newDate = DateTime.now();
+  int inVoiceNumber = 0;
+
   final userEmail = FirebaseAuth.instance.currentUser!.email;
   final user = FirebaseAuth.instance.currentUser!.uid;
   final userName = FirebaseAuth.instance.currentUser!.displayName;
   String courseName;
   String courseID;
   String totalPrice;
+  String id;
+  int duration;
 
   CheckOutScreen(
       {required this.totalPrice,
       required this.courseID,
+      required this.id,
+      required this.duration,
       required this.courseName,
       super.key});
 
@@ -47,6 +53,30 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     super.initState();
   }
 
+  getInvoice() async {
+    var vari = await FirebaseFirestore.instance
+        .collection("InvoiceNumber")
+        .doc("integer")
+        .get();
+    setState(() {
+      widget.inVoiceNumber = vari.data()!['number'];
+      var newData = widget.inVoiceNumber + 1;
+      FirebaseFirestore.instance
+          .collection("InvoiceNumber")
+          .doc("integer")
+          .update({"number": newData});
+    });
+    log(widget.inVoiceNumber);
+  }
+
+  getDate() async {
+    DateTime date = DateTime.now();
+    print(date);
+    widget.newDate = date.add(Duration(days: widget.duration));
+
+    return widget.newDate;
+  }
+
   creatNewMeeting() async {
     var random = Random();
     String roomName = (random.nextInt(10000000) + 10000000).toString();
@@ -55,13 +85,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
-    print("RezorSucess:" + response.paymentId! + "--" + response.orderId!);
+    await getDate();
+    await getInvoice();
+    // print("RezorSucess:" + response.paymentId! + "--" + response.orderId!);
     //PDF Seaction>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     // After paymentSuccessFull section>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
 
     final userpaymentData = UserPaymentModel(
-        randomNumber: '',
+        duration: widget.duration.toString(),
+        exDate: widget.newDate.toString(),
+        inVoiceNumber: widget.inVoiceNumber,
+        id: widget.id,
+        randomNumber: widget.inVoiceNumber.toString(),
         totalprice: widget.totalPrice,
         useremail: widget.userEmail.toString(),
         userName: widget.userName.toString(),
@@ -71,6 +107,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     await UserAddressAddToFireBase().addUserPaymentModelController(
       userpaymentData,
     );
+    log(widget.inVoiceNumber);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -232,6 +269,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   backgroundColor: const Color.fromARGB(255, 26, 32, 44),
                   action: () async {
                     double ttotalPrice = double.parse(widget.totalPrice);
+                    // double ttotalPrice = 1;
                     double paymentPrice = 1 * 100;
                     // Get.off(PaymentScreen());
                     //
@@ -242,7 +280,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     }
 
                     var options = {
-                      'key': 'rzp_live_WkqZiZtSI6LGQ9',
+                      'key': 'rzp_test_4H63BqbBLQlmNQ',
                       //amount will be multiple of 100
                       'amount': paymentPrice.toString(), //so its pay 500
                       'name': 'VECTOR WIND',

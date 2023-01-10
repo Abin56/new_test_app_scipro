@@ -44,42 +44,44 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAzqWsLHKEcuvn4ZPux9DLLiync338-IiI',
-    appId: '1:1034750484450:web:414b248d4b1b4a7b26e3bb',
-    messagingSenderId: '1034750484450',
-    projectId: 'scipro-362508',
-    authDomain: 'scipro-362508.firebaseapp.com',
-    storageBucket: 'scipro-362508.appspot.com',
-    measurementId: 'G-7R6H5L464B',
+    apiKey: 'AIzaSyByi18hlsXzhK1pL_xq_OpTnSWQ1W_SCuk',
+    appId: '1:974571096401:web:51ab185bc5a96d5e9a6b70',
+    messagingSenderId: '974571096401',
+    projectId: 'leptonscipro-31792',
+    authDomain: 'leptonscipro-31792.firebaseapp.com',
+    databaseURL: 'https://leptonscipro-31792-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'leptonscipro-31792.appspot.com',
+    measurementId: 'G-C70G5S6HNB',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDp1hFfdPKAEEN8TkskNPMHQ4gg6t5He5Y',
-    appId: '1:1034750484450:android:a39c4b55b336d22d26e3bb',
-    messagingSenderId: '1034750484450',
-    projectId: 'scipro-362508',
-    storageBucket: 'scipro-362508.appspot.com',
+    apiKey: 'AIzaSyBogPa96bXKrKGAaJpaHrqMpeNdq5nn7aE',
+    appId: '1:974571096401:android:fabae457a0fe2d509a6b70',
+    messagingSenderId: '974571096401',
+    projectId: 'leptonscipro-31792',
+    databaseURL: 'https://leptonscipro-31792-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'leptonscipro-31792.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDwlfFLI2TwOZj3ZZhpSgBvsSmJCN8PQ3Q',
-    appId: '1:1034750484450:ios:7628d3187eb2b69a26e3bb',
-    messagingSenderId: '1034750484450',
-    projectId: 'scipro-362508',
-    storageBucket: 'scipro-362508.appspot.com',
-    androidClientId: '1034750484450-0b2t2ti2famul8iemq9cdqia9pvejvln.apps.googleusercontent.com',
-    iosClientId: '1034750484450-tp3n3epqub46r6labs1ob5nokae3rdrr.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDSNt2JwpQvleEeaOw7NYvdgKoP6TwLCsI',
+    appId: '1:974571096401:ios:4cd8d19c2292300a9a6b70',
+    messagingSenderId: '974571096401',
+    projectId: 'leptonscipro-31792',
+    databaseURL: 'https://leptonscipro-31792-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'leptonscipro-31792.appspot.com',
+    iosClientId: '974571096401-f98o5ukgv06apg69d6qol0j8toeusk9h.apps.googleusercontent.com',
     iosBundleId: 'com.example.sciproApplication',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDwlfFLI2TwOZj3ZZhpSgBvsSmJCN8PQ3Q',
-    appId: '1:1034750484450:ios:7628d3187eb2b69a26e3bb',
-    messagingSenderId: '1034750484450',
-    projectId: 'scipro-362508',
-    storageBucket: 'scipro-362508.appspot.com',
-    androidClientId: '1034750484450-0b2t2ti2famul8iemq9cdqia9pvejvln.apps.googleusercontent.com',
-    iosClientId: '1034750484450-tp3n3epqub46r6labs1ob5nokae3rdrr.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDSNt2JwpQvleEeaOw7NYvdgKoP6TwLCsI',
+    appId: '1:974571096401:ios:4cd8d19c2292300a9a6b70',
+    messagingSenderId: '974571096401',
+    projectId: 'leptonscipro-31792',
+    databaseURL: 'https://leptonscipro-31792-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'leptonscipro-31792.appspot.com',
+    iosClientId: '974571096401-f98o5ukgv06apg69d6qol0j8toeusk9h.apps.googleusercontent.com',
     iosBundleId: 'com.example.sciproApplication',
   );
 }
