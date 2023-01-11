@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:scipro_application/bloc/auth_cubit.dart';
@@ -34,6 +35,7 @@ Future<void> main() async {
   seenonboard = pref.getBool('seenonboard') ?? false;
 
   runApp(const MyApp());
+  disableCapture();
 }
 
 class MyApp extends StatelessWidget {
@@ -71,4 +73,9 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+}
+
+disableCapture() async {
+  await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_KEEP_SCREEN_ON);
 }

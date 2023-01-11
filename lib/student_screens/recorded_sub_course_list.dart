@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:scipro_application/model/video_model.dart';
 import 'package:scipro_application/student_screens/pages/Live_Courses/live_Courses_list.dart';
 import 'package:scipro_application/student_screens/pages/Record_Courses/recorded_courses.dart';
@@ -17,59 +18,13 @@ import '../screens/hybrid_courses.dart';
 import '../video_player/videoplayer_firebase.dart';
 import '../widgets/button_Container.dart';
 
-class RecordedCourseListScreen extends StatefulWidget {
-  var todayDate = DateTime.now();
-  var exDate = '';
-  String courseID = '';
-
+class RecordedCourseListScreen extends StatelessWidget {
   RecordedCourseListScreen({super.key});
 
-  @override
-  State<RecordedCourseListScreen> createState() =>
-      _RecordedCourseListScreenState();
-}
+  var todayDate = DateTime.now();
 
-class _RecordedCourseListScreenState extends State<RecordedCourseListScreen> {
-  @override
-  void initState() {
-    checkExDate();
-    super.initState();
-  }
-
-  void checkExDate() async {
-    final user = FirebaseAuth.instance.currentUser!.uid;
-    var checkingLive = await FirebaseFirestore.instance
-        .collection('UserRECPaymentModel')
-        .doc(user)
-        .get();
-
-    setState(() {
-      checkingLive.data()!['exDate'];
-      widget.exDate = checkingLive.data()!['exDate'];
-      log('Data loading >>>>>>>>>>>>>>>>>>>..${widget.exDate}');
-      log('Data loading >>>>>>>>>>>>>>>>>>>..${widget.todayDate}');
-
-      var checking = DateTime.parse(widget.exDate);
-      var answerdate = checking.difference(widget.todayDate).inMinutes;
-      log('Date Anser >>>>>>>>>>>>>>>>>>>..${answerdate}');
-
-      if (answerdate < 0) {
-        FirebaseFirestore.instance
-            .collection("UserRECPaymentModel")
-            .doc(user)
-            .delete();
-        log("Expired>>>>>>>>>>>>>>>>>>>>>");
-      } else {
-        log("Not expried>>>>>>>>>");
-      }
-    });
-  }
-
-  @override
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!.uid;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Student Courses'),
@@ -89,12 +44,16 @@ class _RecordedCourseListScreenState extends State<RecordedCourseListScreen> {
                     ListofCourses.fromMap(snapshots.data!.data()!);
 
                 if (listData.listofCourse.isEmpty) {
-                  return const Text("No data");
+                  return const Center(child: Text("No Courses found"));
                 }
                 return ListView.separated(
                   itemCount: listData.listofCourse.length,
                   itemBuilder: (context, index) {
+                    log(todayDate.toString());
                     UserPaymentModel data = listData.listofCourse[index];
+                    DateTime exdate = DateTime.parse(data.exDate);
+                    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+                    final String formatted = formatter.format(exdate);
 
                     if (snapshots.hasData) {
                       snapshots.data!.data();
@@ -110,23 +69,37 @@ class _RecordedCourseListScreenState extends State<RecordedCourseListScreen> {
                           height: 100.h,
                           width: double.infinity,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Center(
-                                child: Text(
-                                  data.courseName,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 18),
-                                ),
-                              ),
                               Text(
                                 data.courseName,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                     fontSize: 18),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    const Text(
+                                      'Exipry date : ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: 12),
+                                    ),
+                                    Text(
+                                      formatted,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          fontSize: 11),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -141,7 +114,7 @@ class _RecordedCourseListScreenState extends State<RecordedCourseListScreen> {
                   },
                 );
               } else {
-                return Text('');
+                return const Center(child: Text('No data found'));
               }
             },
           ),

@@ -11,70 +11,76 @@ class UserSelectingCourselisting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          GestureDetector(
-            onTap: () {
-              Get.to(RecordedCourseListScreen());
-            },
-            child: ButtonContainerWidget(
-              curving: 30,
-              colorindex: 0,
-              height: 200.h,
-              width: double.infinity,
-              child: const Center(
-                  child: Text(
-                'Recorded Courses',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 18),
-              )),
+      body: Padding(
+        padding: const EdgeInsets.all(5),
+        child: ListView(
+          children: [
+            const SizedBox(
+              height: 10,
             ),
-          ),
-          SizedBox(
-            height: 13.h,
-          ),
-          GestureDetector(
-            onTap: () {
-              Get.to(LiveCourseListScreen());
-            },
-            child: ButtonContainerWidget(
-              curving: 30,
-              colorindex: 0,
-              height: 200.h,
-              width: double.infinity,
-              child: const Center(
-                  child: Text(
-                'Live Courses',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 18),
-              )),
+            GestureDetector(
+              onTap: () {
+                Get.to(RecordedCourseListScreen());
+              },
+              child: ButtonContainerWidget(
+                curving: 30,
+                colorindex: 0,
+                height: 200.h,
+                width: double.infinity,
+                child: const Center(
+                    child: Text(
+                  'Recorded Courses',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 18),
+                )),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 13.h,
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: ButtonContainerWidget(
-              curving: 30,
-              colorindex: 0,
-              height: 200.h,
-              width: double.infinity,
-              child: const Center(
-                  child: Text(
-                'Hybrid Courses',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 18),
-              )),
+            SizedBox(
+              height: 13.h,
             ),
-          ),
-        ],
+            GestureDetector(
+              onTap: () {
+                Get.to(LiveCourseListScreen());
+              },
+              child: ButtonContainerWidget(
+                curving: 30,
+                colorindex: 0,
+                height: 200.h,
+                width: double.infinity,
+                child: const Center(
+                    child: Text(
+                  'Live Courses',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 18),
+                )),
+              ),
+            ),
+            SizedBox(
+              height: 13.h,
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: ButtonContainerWidget(
+                curving: 30,
+                colorindex: 0,
+                height: 200.h,
+                width: double.infinity,
+                child: const Center(
+                    child: Text(
+                  'Hybrid Courses',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 18),
+                )),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

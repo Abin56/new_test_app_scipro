@@ -28,7 +28,7 @@ class LiveCoursePayment extends StatefulWidget {
   LiveCoursePayment(
       {required this.totalPrice,
       required this.courseID,
-    required this.duration,
+      required this.duration,
       required this.courseName,
       required this.courseTime,
       required this.roomID,
@@ -109,7 +109,7 @@ class _LiveCoursePaymentState extends State<LiveCoursePayment> {
         uid: widget.user.toString(),
         courseName: widget.courseName);
     LivePaymentStatusAddToFireBase()
-        .livePaymentModelController(userpaymentData, listID);
+        .livePaymentModelController(userpaymentData);
 
     // await LiveCoursePaymentModel()
     //     .livePaymentModelController(userpaymentData, listID);
@@ -197,7 +197,7 @@ class _LiveCoursePaymentState extends State<LiveCoursePayment> {
                           SizedBox(height: 10.h),
                           SizedBox(height: 10.h),
                           Text(
-                            'Junior Lab Assistant for  3 Months',
+                            'Course : ${widget.courseName}',
                             style: GoogleFonts.montserrat(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -223,9 +223,13 @@ class _LiveCoursePaymentState extends State<LiveCoursePayment> {
                       "Subtotal : ",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                    Text(
-                      widget.totalPrice.toString(),
-                      style: const TextStyle(color: Colors.blue, fontSize: 20),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${widget.totalPrice}/ -',
+                        style:
+                            const TextStyle(color: Colors.blue, fontSize: 20),
+                      ),
                     ),
                   ],
                 ),
@@ -243,15 +247,21 @@ class _LiveCoursePaymentState extends State<LiveCoursePayment> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'Total :',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 165, 157, 157),
-                                fontSize: 17),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: const Text(
+                              'Total :',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 165, 157, 157),
+                                  fontSize: 17),
+                            ),
                           ),
-                          Text(widget.totalPrice.toString(),
-                              style: const TextStyle(
-                                  color: Colors.green, fontSize: 20))
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('${widget.totalPrice}/ -',
+                                style: const TextStyle(
+                                    color: Colors.green, fontSize: 20)),
+                          )
                         ],
                       ),
                     ),
@@ -277,7 +287,7 @@ class _LiveCoursePaymentState extends State<LiveCoursePayment> {
                       'key': 'rzp_test_4H63BqbBLQlmNQ',
                       //amount will be multiple of 100
                       'amount': paymentPrice.toString(), //so its pay 500
-                      'name': 'VECTOR WIND',
+                      'name': 'VECTORWIND-TEC',
                       'description': 'SciPro',
                       'timeout': 300, // in seconds
                       'prefill': {
@@ -291,7 +301,7 @@ class _LiveCoursePaymentState extends State<LiveCoursePayment> {
                     try {} on Razorpay catch (e) {}
                   },
                   label: Text(
-                    'Proceed To PayOnline',
+                    '`Proceed To `PayOnline',
                     style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontSize: 20,

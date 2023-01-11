@@ -71,20 +71,20 @@ class RecordedCoursesListScreen extends StatelessWidget {
                                           fontSize: 17),
                                     ),
                                     SizedBox(
-                                      height: 10.h,
+                                      height: 30.h,
                                     ),
                                     Text(
-                                      '${data.duration}',
+                                      'Duration : ${data.duration} days ',
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
                                     ),
                                     SizedBox(
-                                      height: 20.h,
+                                      height: 10.h,
                                     ),
                                     Text(
-                                      '${data.courseFee.toString() + '(inc.of all taxess)'}',
+                                      '${data.courseFee.toString() + ' /- (inc.of all taxess)'}',
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,

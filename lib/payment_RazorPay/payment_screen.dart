@@ -196,11 +196,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           SizedBox(height: 10.h),
                           SizedBox(height: 10.h),
                           Text(
-                            'Junior Lab Assistant for  3 Months',
+                            'Course : ${widget.courseName}',
                             style: GoogleFonts.montserrat(
                                 color: Colors.white,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700),
+                            overflow: TextOverflow.ellipsis,
                           ),
                           SizedBox(height: 10.h),
                         ],
@@ -222,9 +223,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       "Subtotal : ",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                    Text(
-                      widget.totalPrice.toString(),
-                      style: const TextStyle(color: Colors.blue, fontSize: 20),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${widget.totalPrice}/ -',
+                        style:
+                            const TextStyle(color: Colors.blue, fontSize: 20),
+                      ),
                     ),
                   ],
                 ),
@@ -242,15 +247,21 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'Total :',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 165, 157, 157),
-                                fontSize: 17),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: const Text(
+                              'Total :',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 165, 157, 157),
+                                  fontSize: 17),
+                            ),
                           ),
-                          Text(widget.totalPrice.toString(),
-                              style: const TextStyle(
-                                  color: Colors.green, fontSize: 20))
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('${widget.totalPrice}/ -',
+                                style: const TextStyle(
+                                    color: Colors.green, fontSize: 20)),
+                          )
                         ],
                       ),
                     ),

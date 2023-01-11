@@ -1,18 +1,13 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:scipro_application/model/live_class_model.dart';
+import 'package:scipro_application/model/payment_model.dart';
 import '../signin/student_faculty_login_screen.dart';
 
 class Splashscreen extends StatefulWidget {
-  var todayDate = DateTime.now();
-  var todayDatee = DateTime.now();
-
-  var exDate = '';
-  var exDatee = '';
-// final examplecontoler = Get.find<StateGetx>()
   Splashscreen({Key? key}) : super(key: key);
 
   @override
@@ -20,75 +15,67 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
-  void checkExDate() async {
+  Future<void> checkExDate() async {
     final user = FirebaseAuth.instance.currentUser!.uid;
-    var checkingLive = await FirebaseFirestore.instance
+    var checkingRec = await FirebaseFirestore.instance
         .collection('UserRECPaymentModel')
         .doc(user)
         .get();
 
-    setState(() {
-      checkingLive.data()!['exDate'];
-      widget.exDate = checkingLive.data()!['exDate'];
-      log('Data loading >>>>>>>>>>>>>>>>>>>..${widget.exDatee}');
-      log('Data loading >>>>>>>>>>>>>>>>>>>..${widget.todayDate}');
-
-      var checking = DateTime.parse(widget.exDatee);
-      var answerdate = checking.difference(widget.todayDate).inMinutes;
-      log('Date Anser >>>>>>>>>>>>>>>>>>>..${answerdate}');
-
-      if (answerdate < 0) {
-        FirebaseFirestore.instance
-            .collection("UserRECPaymentModel")
-            .doc(user)
-            .delete();
-        log("Expired>>>>>>>>>>>>>>>>>>>>>");
-      } else {
-        log("Not expried>>>>>>>>>");
-      }
+    ListofCourses checkingRecDate = ListofCourses.fromMap(checkingRec.data()!);
+    // var courseList = checkingRecDate.listofCourse;
+    checkingRecDate.listofCourse.removeWhere((element) {
+      return DateTime.parse(element.exDate).isBefore(DateTime.now());
     });
+
+    await FirebaseFirestore.instance
+        .collection("UserRECPaymentModel")
+        .doc(user)
+        .set(checkingRecDate.toMap());
+    return;
   }
 
-  void checkExDateLive() async {
+  Future<void> checkLiveExDate() async {
     final user = FirebaseAuth.instance.currentUser!.uid;
-    var checkingLive = await FirebaseFirestore.instance
+    var checkingRec = await FirebaseFirestore.instance
         .collection('LiveCoursePaymentModel_live')
         .doc(user)
         .get();
 
-    setState(() {
-      checkingLive.data()!['date'];
-      widget.exDatee = checkingLive.data()!['date'];
-      log('Data loading >>>>>>>>>>>>>>>>>>>..${widget.exDatee}');
-      log('Data loading >>>>>>>>>>>>>>>>>>>..${widget.todayDatee}');
-
-      var checking = DateTime.parse(widget.exDatee);
-      var answerdate = checking.difference(widget.todayDatee).inMinutes;
-      log('Date Anser >>>>>>>>>>>>>>>>>>>..${answerdate}');
-
-      if (answerdate < 0) {
-        FirebaseFirestore.instance
-            .collection("LiveCoursePaymentModel_live")
-            .doc(user)
-            .delete();
-        log("Expired>>>>>>>>>>>>>>>>>>>>>");
-      } else {
-        log("Not expried>>>>>>>>>");
-      }
+    ListofLiveCourses checkingRecDate =
+        ListofLiveCourses.fromMap(checkingRec.data()!);
+    // var courseList = checkingRecDate.listofCourse;
+    checkingRecDate.listofLiveCourses.removeWhere((element) {
+      return DateTime.parse(element.date).isBefore(DateTime.now());
     });
+
+    await FirebaseFirestore.instance
+        .collection("LiveCoursePaymentModel_live")
+        .doc(user)
+        .set(checkingRecDate.toMap());
+    return;
   }
 
   @override
   void initState() {
     log("haiiiiii");
-    checkExDate();
-    checkExDateLive();
+
+    // checkExDateLive();
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+  void didChangeDependencies() {
+    checkExDate();
+    checkLiveExDate();
     goHomeScreen(context);
+
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // goHomeScreen(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
