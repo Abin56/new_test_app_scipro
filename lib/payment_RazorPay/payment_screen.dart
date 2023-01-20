@@ -8,6 +8,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:scipro_application/model/payment_model.dart';
+import 'package:scipro_application/model/rec_Invoice_model.dart';
+import 'package:scipro_application/model/studyMaterials.dart/s_materials_model.dart';
+import 'package:scipro_application/payment_RazorPay/getData_sm.dart';
 import 'package:slider_button/slider_button.dart';
 import '../widgets/button_Container.dart';
 import '../widgets/newMorphism.dart';
@@ -80,17 +83,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   creatNewMeeting() async {
     var random = Random();
     String roomName = (random.nextInt(10000000) + 10000000).toString();
-    // _jitsiMeetMethods.createMeeting(roomName: roomName, isAudioMuted: true, isVideoMuted: true);
     listID = roomName;
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     await getDate();
     await getInvoice();
-    // print("RezorSucess:" + response.paymentId! + "--" + response.orderId!);
-    //PDF Seaction>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    // After paymentSuccessFull section>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
 
     final userpaymentData = UserPaymentModel(
         duration: widget.duration.toString(),
@@ -108,6 +107,29 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       userpaymentData,
     );
     log(widget.inVoiceNumber);
+    //
+    //
+    //
+    print("working>>>>>>>>>>>>>>>>>>>");
+
+    //
+    //
+
+    /// Invoice for Admin>>>>>>>>>>>>>>>>
+    final storeRecInvoicetoAdmin = RecGetInvoiceModel(
+        useremail: widget.userEmail.toString(),
+        userName: widget.userName.toString(),
+        courseid: widget.courseID,
+        uid: widget.userEmail.toString(),
+        courseName: widget.courseName,
+        inVoiceNumber: widget.inVoiceNumber,
+        date: widget.newDate.toString(),
+        time: '',
+        totalprice: widget.totalPrice,
+        id: '');
+    RecGetInvoiceAddToFireBase().recGetInvoiceController(
+      storeRecInvoicetoAdmin,
+    );
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {

@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:scipro_application/bloc/auth_cubit.dart';
 import 'package:scipro_application/firebase_options.dart';
+import 'package:scipro_application/payment_RazorPay/getData_sm.dart';
 import 'package:scipro_application/signin/g_signin.dart';
 import 'package:scipro_application/splash_screen/on_boarding.dart';
 import 'package:scipro_application/splash_screen/splash_screen.dart';
@@ -36,6 +37,7 @@ Future<void> main() async {
 
   runApp(const MyApp());
   disableCapture();
+  // PayedStudyMaterialsToFireBase();
 }
 
 class MyApp extends StatelessWidget {

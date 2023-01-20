@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -5,7 +8,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scipro_application/payment_RazorPay/getData_sm.dart';
 
+import '../../../model/studyMaterials.dart/s_materials_model.dart';
 import '../../../payment_RazorPay/livecourse_payment.dart';
 import '../../../payment_RazorPay/payment_screen.dart';
 import '../../../widgets/button_Container.dart';
@@ -207,6 +212,7 @@ class RecordedCourseDetailScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+
                 ],
               ),
             ),
@@ -215,6 +221,7 @@ class RecordedCourseDetailScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () async {
+                // PayedStudyMaterialsToFireBase();
                 Get.to(CheckOutScreen(
                     duration: int.parse(duration),
                     id: id,
@@ -224,7 +231,7 @@ class RecordedCourseDetailScreen extends StatelessWidget {
               },
               child: ButtonContainerWidget(
                 curving: 30,
-                colorindex: 4,
+                colorindex: 5,
                 height: 60.h,
                 width: 200.w,
                 child: Center(
@@ -237,7 +244,7 @@ class RecordedCourseDetailScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         )));
   }

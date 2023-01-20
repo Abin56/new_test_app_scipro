@@ -104,7 +104,10 @@ class LivePaymentStatusAddToFireBase {
       } on FirebaseException catch (e) {
         // log('Error ${e.message.toString()}');
       }
-    } else {
+    } 
+    
+    
+    else {
       var z = ListofLiveCourses.fromMap(y);
       ListofLiveCourses list =
           ListofLiveCourses(listofLiveCourses: z.listofLiveCourses);

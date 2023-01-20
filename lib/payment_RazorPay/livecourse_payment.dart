@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:scipro_application/model/live_Invoice_model.dart';
 import 'package:slider_button/slider_button.dart';
 import '../model/live_class_model.dart';
 import '../widgets/button_Container.dart';
@@ -110,6 +111,21 @@ class _LiveCoursePaymentState extends State<LiveCoursePayment> {
         courseName: widget.courseName);
     LivePaymentStatusAddToFireBase()
         .livePaymentModelController(userpaymentData);
+
+    final storeRecInvoicetoAdmin = LiveGetInvoiceModel(
+        useremail: widget.userEmail.toString(),
+        userName: widget.userName.toString(),
+        courseid: widget.courseID,
+        uid: widget.userEmail.toString(),
+        courseName: widget.courseName,
+        inVoiceNumber: widget.inVoiceNumber,
+        date: widget.newDate.toString(),
+        time: '',
+        totalprice: widget.totalPrice,
+        id: '');
+    LiveGetInvoiceAddToFireBase().liveGetInvoiceController(
+      storeRecInvoicetoAdmin,
+    );
 
     // await LiveCoursePaymentModel()
     //     .livePaymentModelController(userpaymentData, listID);
